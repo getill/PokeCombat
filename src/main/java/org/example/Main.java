@@ -18,9 +18,7 @@ public class Main {
         System.out.println(Carapuce);
         combat.afficherPv();
 
-        combat.fireAttack();
-        combat.fireAttack();
-        combat.fireAttack();
+        combat.demarrerCombat();
 
 
 //       System.out.println(joueur1);
