@@ -10,9 +10,9 @@ public class Main {
         Pokemon Rondoudou = new Pokemon("Rondoudou", "Normal", 130, 30, 20);
 
         // Création d'un joueur avec son Pokémon
-        Joueur joueur1 = new Joueur("Sacha", Bulbizarre);
-        Joueur joueur2 = new Joueur("Test", Carapuce);
-        Combat combat = new Combat(Pikachu, Carapuce);
+        Joueur joueur1 = new Joueur("Sacha", Salamèche);
+        Joueur joueur2 = new Joueur("Test", Bulbizarre);
+        Combat combat = new Combat(Salamèche, Bulbizarre);
 
         // Affichage
         System.out.println(Carapuce);
