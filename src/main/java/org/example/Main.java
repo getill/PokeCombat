@@ -21,10 +21,6 @@ public class Main {
         combat.fireAttack();
         combat.fireAttack();
         combat.fireAttack();
-        int a = 5;
-        int b = a;
-        b++;
-        System.out.println(a);
 
 
 //       System.out.println(joueur1);

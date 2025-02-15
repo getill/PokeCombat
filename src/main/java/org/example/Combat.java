@@ -14,10 +14,9 @@ public class Combat {
         System.out.println(pokemon2.getName() + " a " + pokemon2.getPv() + " PV.");
     }
     public void fireAttack() {
-        int newPv = pokemon1.getPv() - 50;
+        int newPv = pokemon1.getPv() - (pokemon2.getAttaque() - pokemon1.getDefense());
         if (newPv < 0) {
             newPv = 0; // Empêche d'avoir des PV négatifs
-
         }
 
         pokemon1.setPv(newPv); // Mise à jour des PV
