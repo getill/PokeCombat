@@ -1,71 +1,72 @@
 package org.example;
+import java.util.Scanner;
 
 public class Combat {
-    private Pokemon pokemon1; // Stocke le Pokémon qui participe au combat
-    private Pokemon pokemon2; // Stocke le Pokémon qui participe au combat
+    private Pokemon pokemon1;
+    private Pokemon pokemon2;
+    private Scanner scanner;
 
     public Combat(Pokemon pokemon1, Pokemon pokemon2) {
         this.pokemon1 = pokemon1;
         this.pokemon2 = pokemon2;
+        this.scanner = new Scanner(System.in);
     }
 
-    public void afficherPv() {
-        System.out.println(pokemon1.getName() + " a " + pokemon1.getPv() + " PV.");
-        System.out.println(pokemon2.getName() + " a " + pokemon2.getPv() + " PV.");
-    }
-
-    private ResultatAttaque calculerDegats(Pokemon attaquant, Pokemon defenseur, int baseDommages) {
+    private ResultatAttaque calculerDegats(Pokemon attaquant, Pokemon defenseur, Attaque attaque) {
         double multiplicateur = 1.0;
         String message = "";
 
-        // Vérification des bonus/malus selon les types
-        if ((attaquant.getType().equals("Feu") && defenseur.getType().equals("Plante")) ||
-                (attaquant.getType().equals("Plante") && defenseur.getType().equals("Eau")) ||
-                (attaquant.getType().equals("Eau") && defenseur.getType().equals("Feu"))) {
+        // Vérification du bonus/malus selon les types
+        if ((attaque.getType().equals("Feu") && defenseur.getType().equals("Plante")) ||
+                (attaque.getType().equals("Plante") && defenseur.getType().equals("Eau")) ||
+                (attaque.getType().equals("Eau") && defenseur.getType().equals("Feu"))) {
             multiplicateur = 2.0;
-            message = "et c'est super efficace ! "; // Message spécial
+            message = "C'est super efficace ! ";
         }
 
-        int degats = (int) (baseDommages * multiplicateur);
+        int degats = (int) (attaque.getDegats() * multiplicateur);
         return new ResultatAttaque(degats, message);
     }
 
+    private Attaque choisirAttaque(Pokemon attaquant) {
+        System.out.println(attaquant.getName() + ", choisissez une attaque :");
 
+        for (int i = 0; i < attaquant.getAttaques().size(); i++) {
+            Attaque attaque = attaquant.getAttaques().get(i);
+            System.out.println((i + 1) + ". " + attaque.getNom() + " (" + attaque.getDegats() + " dégâts)");
+        }
+
+        int choix;
+        do {
+            System.out.print("Votre choix : ");
+            choix = scanner.nextInt() - 1;
+        } while (choix < 0 || choix >= attaquant.getAttaques().size());
+
+        return attaquant.getAttaques().get(choix);
+    }
 
     public void demarrerCombat() {
         System.out.println("Début du combat entre " + pokemon1.getName() + " et " + pokemon2.getName());
 
         while (pokemon1.getPv() > 0 && pokemon2.getPv() > 0) {
+            // Tour du premier Pokémon
+            Attaque attaque1 = choisirAttaque(pokemon1);
+            ResultatAttaque resultat1 = calculerDegats(pokemon1, pokemon2, attaque1);
 
-            // Calcul des dégâts
-            ResultatAttaque attaque1 = calculerDegats(pokemon1, pokemon2, 50);
-            ResultatAttaque attaque2 = calculerDegats(pokemon2, pokemon1, 50);
-
-            // Simulation d'attaque : chaque attaque enlève 50 PV
-            pokemon2.setPv(Math.max(0, pokemon2.getPv() -  (attaque1.getDegats() - pokemon2.getDefense())));
-
-
-            if (!attaque1.getMessage().isEmpty()) {
-                System.out.println(pokemon1.getName() + " attaque " + attaque1.getMessage() + pokemon2.getName() + " a maintenant " + pokemon2.getPv() + " PV.");
-            } else {
-                System.out.println(pokemon1.getName() + " attaque ! " + pokemon2.getName() + " a maintenant " + pokemon2.getPv() + " PV.");
-
-            }
+            pokemon2.setPv(Math.max(0, pokemon2.getPv() - (resultat1.getDegats() - pokemon2.getDefense())));
+            System.out.println(pokemon1.getName() + " utilise " + attaque1.getNom() + " ! " + resultat1.getMessage() + pokemon2.getName() + " a maintenant " + pokemon2.getPv() + " PV.");
 
             if (pokemon2.getPv() == 0) {
                 System.out.println(pokemon2.getName() + " est KO ! " + pokemon1.getName() + " gagne !");
                 break;
             }
 
-            pokemon1.setPv(Math.max(0, pokemon1.getPv() - (attaque2.getDegats() - pokemon1.getDefense())));
+            // Tour du deuxième Pokémon
+            Attaque attaque2 = choisirAttaque(pokemon2);
+            ResultatAttaque resultat2 = calculerDegats(pokemon2, pokemon1, attaque2);
 
-
-            if (!attaque2.getMessage().isEmpty()) {
-                System.out.println(pokemon2.getName() + " attaque " + attaque2.getMessage() + pokemon1.getName() + " a maintenant " + pokemon1.getPv() + " PV.");
-            } else {
-                System.out.println(pokemon2.getName() + " attaque ! " + pokemon1.getName() + " a maintenant " + pokemon1.getPv() + " PV.");
-
-            }
+            pokemon1.setPv(Math.max(0, pokemon1.getPv() - (resultat2.getDegats() - pokemon1.getDefense())));
+            System.out.println(pokemon2.getName() + " utilise " + attaque2.getNom() + " ! " + resultat2.getMessage() + pokemon1.getName() + " a maintenant " + pokemon1.getPv() + " PV.");
 
             if (pokemon1.getPv() == 0) {
                 System.out.println(pokemon1.getName() + " est KO ! " + pokemon2.getName() + " gagne !");
@@ -75,4 +76,6 @@ public class Combat {
 
         System.out.println("Le combat est terminé !");
     }
+
+
 }

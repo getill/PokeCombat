@@ -1,17 +1,19 @@
 package org.example;
+import java.util.List;
+
 public class Pokemon {
     private String name;
     private String type;
     private int pv;
-    private int attaque;
     private int defense;
+    private List<Attaque> attaques;
 
-    public Pokemon(String name, String type, int pv, int attaque, int defense) {
+    public Pokemon(String name, String type, int pv, int defense, List<Attaque> attaques) {
         this.name = name;
         this.type = type;
         this.pv = pv;
-        this.attaque = attaque;
         this.defense = defense;
+        this.attaques = attaques;
     }
 
     public String getName() {
@@ -26,12 +28,13 @@ public class Pokemon {
         return pv;
     }
 
-    public int getAttaque() {
-        return attaque;
-    }
 
     public int getDefense() {
         return defense;
+    }
+
+    public List<Attaque> getAttaques() {
+        return attaques;
     }
 
     public void setPv(int pv) {
@@ -41,6 +44,6 @@ public class Pokemon {
     @Override
     public String toString() {
         return "Pokemon{name='" + name + "', type='" + type + "', pv=" + pv +
-                ", attaque=" + attaque + ", defense=" + defense + "}";
+                ", attaque=" + attaques + ", defense=" + defense + "}";
     }
 }

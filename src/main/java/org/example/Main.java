@@ -1,34 +1,27 @@
 package org.example;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
+        // Création des attaques
+        Attaque eclair = new Attaque("Éclair", 50, "Électrique");
+        Attaque tonnerre = new Attaque("Tonnerre", 60, "Électrique");
+
+        Attaque flamèche = new Attaque("Flammèche", 50, "Feu");
+        Attaque lanceFlammes = new Attaque("Lance-Flammes", 70, "Feu");
+
         // Création d'un Pokémon avec un constructeur complet
-        Pokemon Pikachu = new Pokemon("Pikachu", "Électrique", 100, 50, 30);
-        Pokemon Bulbizarre = new Pokemon("Bulbizarre", "Plante", 120, 40, 35);
-        Pokemon Salamèche = new Pokemon("Salamèche", "Feu", 110, 45, 25);
-        Pokemon Carapuce = new Pokemon("Carapuce", "Eau", 115, 35, 40);
-        Pokemon Rondoudou = new Pokemon("Rondoudou", "Normal", 130, 30, 20);
+        Pokemon Pikachu = new Pokemon("Pikachu", "Électrique", 100, 50, Arrays.asList(eclair, tonnerre));
+        Pokemon Salamèche = new Pokemon("Salamèche", "Feu", 110, 45, Arrays.asList(flamèche, lanceFlammes));
+        Pokemon Bulbizarre = new Pokemon("Bulbizarre", "Plante", 110, 45, Arrays.asList(flamèche, lanceFlammes));
 
-        // Création d'un joueur avec son Pokémon
-        Joueur joueur1 = new Joueur("Sacha", Salamèche);
-        Joueur joueur2 = new Joueur("Test", Bulbizarre);
-        Combat combat = new Combat(Salamèche, Bulbizarre);
+        // Démarrer le combat
+        Combat combat = new Combat(Bulbizarre, Salamèche);
 
-        // Affichage
-        System.out.println(Carapuce);
-        combat.afficherPv();
-
+        // Simuler un tour
         combat.demarrerCombat();
 
 
-//       System.out.println(joueur1);
-//       System.out.println(joueur2);
-//
-//        // Affichage des valeurs individuelles
-//        System.out.println("Nom: " + Pikachu.getName());
-//        System.out.println("Type: " + Pikachu.getType());
-//        System.out.println("PV: " + Pikachu.getPv());
-//        System.out.println("Attaque: " + Pikachu.getAttaque());
-//        System.out.println("Défense: " + Pikachu.getDefense());
     }
 }
