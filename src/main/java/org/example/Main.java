@@ -1,6 +1,4 @@
 package org.example;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -18,7 +16,7 @@ public class Main {
             System.out.print("Votre choix : ");
 
             int choix = scanner.nextInt();
-            scanner.nextLine(); // Consommer l’entrée
+            scanner.nextLine();
 
             if (choix == 1) {
                 // Sélection des Pokémon par les joueurs

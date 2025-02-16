@@ -38,6 +38,7 @@ public class Pokemon {
     }
 
     public void setPv(int pv) {
+        pv = Math.max(pv,0);
         this.pv = pv;
     }
 

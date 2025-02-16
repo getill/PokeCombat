@@ -6,7 +6,7 @@ import java.util.List;
 public class ListPokemon {
     public static List<Pokemon> pokemonsDisponibles = Arrays.asList(
             new Pokemon("Salamèche", "Feu", 110, 45, Arrays.asList(
-                    new Attaque("Flammèche", 50, "Feu"),
+                    new Attaque("Flammèche", 40, "Feu"),
                     new Attaque("Lance-Flammes", 100, "Feu")
             )),
             new Pokemon("Carapuce", "Eau", 120, 55, Arrays.asList(
